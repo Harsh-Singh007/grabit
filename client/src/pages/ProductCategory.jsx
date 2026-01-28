@@ -1,6 +1,6 @@
 import { categories } from "../assets/assets";
 import ProductCard from "../components/ProductCard";
-import { useAppContext } from "../context/appContext";
+import { useAppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
 const ProductCategory = () => {
   const { products } = useAppContext();
@@ -20,7 +20,7 @@ const ProductCategory = () => {
             {searchCategory.text.toUpperCase()}
           </h1>
         </div>
-      )}     
+      )}
       {filteredProducts.length > 0 ? (
         <div>
           <div className="my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center justify-center">
