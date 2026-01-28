@@ -31,7 +31,7 @@ const SellerLayout = () => {
     <>
       <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
         <Link to={"/"}>
-          <h1 className="text-2xl font-semibold">Grocery Store App</h1>
+          <h1 className="text-2xl font-semibold">GrabIT Admin</h1>
         </Link>
         <div className="flex items-center gap-5 text-gray-500">
           <p>Hi! Admin</p>
@@ -51,11 +51,10 @@ const SellerLayout = () => {
               key={item.name}
               end={item.path === "/seller"}
               className={({ isActive }) => `flex items-center py-3 px-4 gap-3 
-                            ${
-                              isActive
-                                ? "border-r-4 md:border-r-[6px] bg-indigo-500/10 border-indigo-500 text-indigo-500"
-                                : "hover:bg-gray-100/90 border-white "
-                            }`}
+                            ${isActive
+                  ? "border-r-4 md:border-r-[6px] bg-indigo-500/10 border-indigo-500 text-indigo-500"
+                  : "hover:bg-gray-100/90 border-white "
+                }`}
             >
               <img src={item.icon} alt="" className="w-7 h-7" />
               <p className="md:block hidden text-center">{item.name}</p>
