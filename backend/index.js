@@ -33,7 +33,14 @@ app.use("/api/address", addressRoutes);
 app.use("/api/order", orderRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    connectDB();
+    console.log(`Server is running on port ${PORT}`);
+  });
+} else {
   connectDB();
-  console.log(`Server is running on port ${PORT}`);
-});
+}
+
+export default app;
