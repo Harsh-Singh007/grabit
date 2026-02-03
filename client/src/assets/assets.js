@@ -126,7 +126,7 @@ export const categories = [
     bgColor: "#FFEDF3",
   },
   {
-    text: "Dairy, Bread & Eggs",
+    text: "Dairy & Eggs",
     path: "Dairy",
     image: dairy_product_image,
     bgColor: "#FEE6CD",
@@ -162,13 +162,13 @@ export const categories = [
     bgColor: "#E0F6FE",
   },
   {
-    text: "Bakery & Biscuits",
+    text: "Bakery",
     path: "Bakery",
     image: bakery_image,
     bgColor: "#F1E3F9",
   },
   {
-    text: "Tea, Coffee & Drinks",
+    text: "Tea, Coffee & Milk Drinks",
     path: "Beverages",
     image: tea_coffee_image,
     bgColor: "#E8F5E9",
