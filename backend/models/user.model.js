@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     cartItems: { type: Object, default: {} },
+    verifyOtp: { type: String, default: "" },
+    verifyOtpExpire: { type: Number, default: 0 },
+    isVerified: { type: Boolean, default: false },
   },
   { minimize: false }
 );

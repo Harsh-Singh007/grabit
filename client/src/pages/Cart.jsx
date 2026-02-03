@@ -90,7 +90,7 @@ const Cart = () => {
     }
   };
   return products.length > 0 && cartItems ? (
-    <div className="flex flex-col md:flex-row py-16 max-w-6xl w-full px-6 mx-auto">
+    <div className="flex flex-col md:flex-row py-16 max-w-6xl w-full px-6 mx-auto animate-fadeInUp">
       <div className="flex-1 max-w-4xl">
         <h1 className="text-3xl font-medium mb-6">
           Shopping Cart{" "}
@@ -114,11 +114,15 @@ const Cart = () => {
                   navigate(`product/${product.category}/${product._id}`);
                   scrollTo(0, 0);
                 }}
-                className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded cusror-pointer"
+                className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded cusror-pointer hover:shadow-md transition-shadow"
               >
                 <img
                   className="max-w-full h-full object-cover"
-                  src={`${backendUrl}/images/${product.image[0]}`}
+                  src={
+                    product.image[0].startsWith("http")
+                      ? product.image[0]
+                      : `${backendUrl}/images/${product.image[0]}`
+                  }
                   alt={product.name}
                 />
               </div>
@@ -152,11 +156,11 @@ const Cart = () => {
               </div>
             </div>
             <p className="text-center">
-              ${product.offerPrice * product.quantity}
+              ₹{product.offerPrice * product.quantity}
             </p>
             <button
               onClick={() => removeFromCart(product._id)}
-              className="cursor-pointer mx-auto"
+              className="cursor-pointer mx-auto text-red-500 hover:scale-110 transition-transform"
             >
               <svg
                 width="20"
@@ -167,7 +171,7 @@ const Cart = () => {
               >
                 <path
                   d="m12.5 7.5-5 5m0-5 5 5m5.833-2.5a8.333 8.333 0 1 1-16.667 0 8.333 8.333 0 0 1 16.667 0"
-                  stroke="#FF532E"
+                  stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -179,7 +183,7 @@ const Cart = () => {
 
         <button
           onClick={() => navigate("/products")}
-          className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium"
+          className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium hover:text-indigo-600 transition-colors"
         >
           <svg
             width="15"
@@ -187,10 +191,11 @@ const Cart = () => {
             viewBox="0 0 15 11"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="transition-transform group-hover:-translate-x-1"
           >
             <path
               d="M14.09 5.5H1M6.143 10 1 5.5 6.143 1"
-              stroke="#615fff"
+              stroke="currentColor"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -199,7 +204,7 @@ const Cart = () => {
           Continue Shopping
         </button>
       </div>
-      <div className="max-w-[360px] w-full bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70">
+      <div className="max-w-[360px] w-full bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70 rounded-lg shadow-sm">
         <h2 className="text-xl md:text-xl font-medium">Order Summary</h2>
         <hr className="border-gray-300 my-5" />
         <div className="mb-6">
@@ -217,7 +222,7 @@ const Cart = () => {
               Change
             </button>
             {showAddress && (
-              <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
+              <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full z-10 shadow-lg rounded">
                 {address.map((address, index) => (
                   <p
                     key={index}
@@ -225,7 +230,7 @@ const Cart = () => {
                       setSelectedAddress(address);
                       setShowAddress(false);
                     }}
-                    className="text-gray-500 p-2 hover:bg-gray-100"
+                    className="text-gray-500 p-2 hover:bg-gray-100 cursor-pointer"
                   >
                     {address.street}, {address.city}, {address.state},{" "}
                     {address.country},
@@ -245,7 +250,7 @@ const Cart = () => {
 
           <select
             onChange={(e) => setPaymentOption(e.target.value)}
-            className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none"
+            className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none rounded"
           >
             <option value="COD">Cash On Delivery</option>
             <option value="Online">Online Payment</option>
@@ -257,7 +262,7 @@ const Cart = () => {
         <div className="text-gray-500 mt-4 space-y-2">
           <p className="flex justify-between">
             <span>Price</span>
-            <span>${totalCartAmount()}</span>
+            <span>₹{totalCartAmount()}</span>
           </p>
           <p className="flex justify-between">
             <span>Shipping Fee</span>
@@ -265,17 +270,17 @@ const Cart = () => {
           </p>
           <p className="flex justify-between">
             <span>Tax (2%)</span>
-            <span>${(totalCartAmount() * 2) / 100}</span>
+            <span>₹{(totalCartAmount() * 2) / 100}</span>
           </p>
           <p className="flex justify-between text-lg font-medium mt-3">
             <span>Total Amount:</span>
-            <span>${totalCartAmount() + (totalCartAmount() * 2) / 100}</span>
+            <span>₹{totalCartAmount() + (totalCartAmount() * 2) / 100}</span>
           </p>
         </div>
 
         <button
           onClick={placeOrder}
-          className="w-full py-3 mt-6 cursor-pointer bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition"
+          className="w-full py-3 mt-6 rounded-lg cursor-pointer bg-indigo-500 text-white font-medium hover:bg-indigo-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
         >
           {paymentOption === "COD" ? "Place Order" : "Proceed to Checkout"}
         </button>

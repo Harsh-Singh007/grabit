@@ -69,6 +69,19 @@ import vanilla_muffins_image from "./vanilla_muffins_image.png";
 import quinoa_image from "./quinoa_image.png";
 import brown_rice_image from "./brown_rice_image.png";
 import barley_image from "./barley_image.png";
+import paan_corner_image from "./paan_corner_image.png";
+import meat_fish_image from "./meat_fish_image.png";
+import baby_care_image from "./baby_care_image.png";
+import home_office_image from "./home_office_image.png";
+import personal_care_image from "./personal_care_image.png";
+import snacks_munchies_image from "./snacks_munchies_image.png";
+import masala_oil_image from "./masala_oil_image.png";
+import pet_care_image from "./pet_care_image.png";
+import sauces_spreads_image from "./sauces_spreads_image.png";
+
+import pharma_wellness_image from "./pharma_wellness_image.png";
+import cleaning_essentials_image from "./cleaning_essentials_image.png";
+import tea_coffee_image from "./tea_coffee_image.png";
 
 export const assets = {
   logo,
@@ -98,50 +111,133 @@ export const assets = {
   bottom_banner_image_sm,
   add_address_iamge,
   box_icon,
+  pharma_wellness_image,
+  cleaning_essentials_image,
+  tea_coffee_image,
+  baby_care_image,
+  pet_care_image,
 };
 
 export const categories = [
   {
-    text: "Organic veggies",
-    path: "Vegetables",
-    image: organic_vegitable_image,
-    bgColor: "#FEF6DA",
+    text: "Paan Corner",
+    path: "Paan",
+    image: paan_corner_image,
+    bgColor: "#FFEDF3",
   },
   {
-    text: "Fresh Fruits",
-    path: "Fruits",
-    image: fresh_fruits_image,
-    bgColor: "#FEE0E0",
-  },
-  {
-    text: "Cold Drinks",
-    path: "Drinks",
-    image: bottles_image,
-    bgColor: "#F0F5DE",
-  },
-  {
-    text: "Instant Food",
-    path: "Instant",
-    image: maggi_image,
-    bgColor: "#E1F5EC",
-  },
-  {
-    text: "Dairy Products",
+    text: "Dairy, Bread & Eggs",
     path: "Dairy",
     image: dairy_product_image,
     bgColor: "#FEE6CD",
   },
   {
-    text: "Bakery & Breads",
-    path: "Bakery",
-    image: bakery_image,
+    text: "Fruits & Vegetables",
+    path: "Vegetables",
+    image: organic_vegitable_image,
+    bgColor: "#FEF6DA",
+  },
+  {
+    text: "Cold Drinks & Juices",
+    path: "Drinks",
+    image: bottles_image,
+    bgColor: "#F0F5DE",
+  },
+  {
+    text: "Snacks & Munchies",
+    path: "Snacks",
+    image: snacks_munchies_image,
+    bgColor: "#FEE0E0",
+  },
+  {
+    text: "Breakfast & Instant",
+    path: "Instant",
+    image: maggi_image,
+    bgColor: "#E1F5EC",
+  },
+  {
+    text: "Sweet Tooth",
+    path: "Sweets",
+    image: chocolate_cake_image,
     bgColor: "#E0F6FE",
   },
   {
-    text: "Grains & Cereals",
+    text: "Bakery & Biscuits",
+    path: "Bakery",
+    image: bakery_image,
+    bgColor: "#F1E3F9",
+  },
+  {
+    text: "Tea, Coffee & Drinks",
+    path: "Beverages",
+    image: tea_coffee_image,
+    bgColor: "#E8F5E9",
+  },
+  {
+    text: "Atta, Rice & Dal",
     path: "Grains",
     image: grain_image,
-    bgColor: "#F1E3F9",
+    bgColor: "#FFF3E0",
+  },
+  {
+    text: "Chicken, Meat & Fish",
+    path: "Meat",
+    image: meat_fish_image,
+    bgColor: "#FFEBEE",
+  },
+  {
+    text: "Baby Care",
+    path: "Baby",
+    image: baby_care_image,
+    bgColor: "#E3F2FD",
+  },
+  {
+    text: "Pet Care",
+    path: "Pet",
+    image: pet_care_image,
+    bgColor: "#F3E5F5",
+  },
+  {
+    text: "Masala, Oil & More",
+    path: "Spices",
+    image: masala_oil_image,
+    bgColor: "#FFF3E0",
+  },
+  {
+    text: "Sauces & Spreads",
+    path: "Sauces",
+    image: sauces_spreads_image,
+    bgColor: "#FBE9E7",
+  },
+  {
+    text: "Organic & Healthy",
+    path: "Organic",
+    image: quinoa_image,
+    bgColor: "#E8F5E9",
+  },
+  {
+    text: "Pharma & Wellness",
+    path: "Pharma",
+    image: pharma_wellness_image,
+    bgColor: "#E3F2FD",
+  },
+  {
+    text: "Cleaning Essentials",
+    path: "Cleaning",
+    image: cleaning_essentials_image,
+    bgColor: "#E1F5FE",
+  },
+  {
+    text: "Home & Office",
+    path: "Stationery",
+    image: home_office_image,
+    bgColor: "#EDE7F6",
+  },
+  {
+    text: "Personal Care",
+    path: "PersonalCare",
+    image: personal_care_image,
+    bgColor: "#F3E5F5",
   },
 ];
 

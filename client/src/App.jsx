@@ -11,17 +11,21 @@ import Auth from "./modals/Auth";
 import ProductCategory from "./pages/ProductCategory";
 import Address from "./pages/Address";
 import MyOrders from "./pages/MyOrders";
+import Profile from "./pages/Profile";
 import SellerLogin from "./components/seller/SellerLogin";
 import SellerLayout from "./pages/seller/SellerLayout";
 import AddProduct from "./pages/seller/AddProduct";
 import ProductList from "./pages/seller/ProductList";
 import Orders from "./pages/seller/Orders";
+import FloatingCart from "./components/FloatingCart";
+
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
   const { showUserLogin, isSeller } = useAppContext();
   return (
-    <div className="text-default min-h-screen">
+    <div className="text-default min-h-screen relative">
       {isSellerPath ? null : <Navbar />}
+      {isSellerPath ? null : <FloatingCart />}
       {showUserLogin ? <Auth /> : null}
       <Toaster />
       <div
@@ -35,6 +39,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-address" element={<Address />} />
           <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/seller"
             element={isSeller ? <SellerLayout /> : <SellerLogin />}

@@ -16,14 +16,14 @@ const ProductCategory = () => {
     <div className="mt-16">
       {searchCategory && (
         <div className="flex flex-col items-end w-max">
-          <h1 className="text-3xl md:text-4xl font-medium">
+          <h1 className="text-3xl md:text-4xl font-medium animate-fadeInUp">
             {searchCategory.text.toUpperCase()}
           </h1>
         </div>
       )}
       {filteredProducts.length > 0 ? (
         <div>
-          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center justify-center">
+          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center justify-center animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
             {filteredProducts.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}
