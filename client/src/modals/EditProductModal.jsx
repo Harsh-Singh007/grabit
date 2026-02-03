@@ -131,7 +131,7 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                                 <option value="">Select Category</option>
                                 {categories.map((cat, index) => (
                                     <option value={cat.path} key={index}>
-                                        {cat.path}
+                                        {cat.text}
                                     </option>
                                 ))}
                             </select>

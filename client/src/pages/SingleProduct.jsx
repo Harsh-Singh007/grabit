@@ -19,7 +19,7 @@ const SingleProduct = () => {
     if (products.length > 0 && product) {
       let productsCopy = products.slice();
       productsCopy = productsCopy.filter(
-        (item) => item.category === product.category && item._id !== product._id
+        (item) => item.category.toLowerCase() === product.category.toLowerCase() && item._id !== product._id
       );
       setRelatedProducts(productsCopy.slice(0, 5));
     }
@@ -64,7 +64,7 @@ const SingleProduct = () => {
       <div className="mt-16 animate-fadeInUp">
         <p>
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>/<Link to={"/products"} className="hover:text-primary transition-colors"> Products</Link> /
-          <Link to={`/products/${product.category.toLowerCase()}`} className="hover:text-primary transition-colors">
+          <Link to={`/products/${product.category}`} className="hover:text-primary transition-colors">
             {" "}
             {product.category}
           </Link>{" "}
