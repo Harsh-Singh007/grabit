@@ -65,46 +65,6 @@ export const addProduct = async (req, res) => {
   }
 };
 
-// bulk add products : /api/product/bulk-add
-export const bulkAddProducts = async (req, res) => {
-  try {
-    const { products } = req.body;
-
-    if (!products || !Array.isArray(products) || products.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid products data. Please provide an array of products.",
-      });
-    }
-
-    // Basic validation and formatting
-    const formattedProducts = products.map((p) => ({
-      name: p.name,
-      price: p.price,
-      offerPrice: p.offerPrice || p.price,
-      description: p.description || "",
-      category: p.category,
-      image: Array.isArray(p.image) ? p.image : [p.image || ""],
-      inStock: p.inStock !== undefined ? p.inStock : true,
-    }));
-
-    const result = await Product.insertMany(formattedProducts);
-
-    return res.status(201).json({
-      success: true,
-      message: `${result.length} products added successfully`,
-      count: result.length,
-    });
-  } catch (error) {
-    console.error("Error in bulkAddProducts:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server error during bulk addition",
-      error: error.message,
-    });
-  }
-};
-
 // get products :/api/product/get
 export const getProducts = async (req, res) => {
   try {
