@@ -1,5 +1,8 @@
 import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Place order COD: /api/order/place
 export const placeOrderCOD = async (req, res) => {
@@ -12,10 +15,11 @@ export const placeOrderCOD = async (req, res) => {
         .json({ message: "Invalid order details", success: false });
     }
     // calculate amount using items;
-    let amount = await items.reduce(async (acc, item) => {
+    let amount = 0;
+    for (const item of items) {
       const product = await Product.findById(item.product);
-      return (await acc) + product.offerPrice * item.quantity;
-    }, 0);
+      amount += product.offerPrice * item.quantity;
+    }
 
     // Add tex charfe 2%
     amount += Math.floor((amount * 2) / 100);
@@ -32,6 +36,96 @@ export const placeOrderCOD = async (req, res) => {
       .json({ message: "Order placed successfully", success: true });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// Place order using Stripe: /api/order/stripe
+export const placeOrderStripe = async (req, res) => {
+  try {
+    const userId = req.user;
+    const { items, address } = req.body;
+    const { origin } = req.headers;
+
+    if (!address || !items || items.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Invalid order details", success: false });
+    }
+
+    let amount = 0;
+    const line_items = [];
+
+    for (const item of items) {
+      const product = await Product.findById(item.product);
+      amount += product.offerPrice * item.quantity;
+
+      line_items.push({
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: product.name,
+          },
+          unit_amount: product.offerPrice * 100, // Stripe expects amount in paise
+        },
+        quantity: item.quantity,
+      });
+    }
+
+    // Add 2% tax as a separate line item if needed, or include in price
+    const taxAmount = Math.floor((amount * 2) / 100);
+    line_items.push({
+      price_data: {
+        currency: "inr",
+        product_data: {
+          name: "Tax (2%)",
+        },
+        unit_amount: taxAmount * 100,
+      },
+      quantity: 1,
+    });
+
+    const newOrder = new Order({
+      userId,
+      items,
+      address,
+      amount: amount + taxAmount,
+      paymentType: "Stripe",
+      isPaid: false,
+    });
+
+    await newOrder.save();
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items,
+      mode: "payment",
+      success_url: `${origin}/verify-payment?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${origin}/verify-payment?success=false&orderId=${newOrder._id}`,
+    });
+
+    res.json({ success: true, session_url: session.url });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Verify Stripe payment
+export const verifyStripe = async (req, res) => {
+  const userId = req.user;
+  const { orderId, success } = req.body;
+
+  try {
+    if (success === "true") {
+      await Order.findByIdAndUpdate(orderId, { isPaid: true });
+      res.json({ success: true, message: "Payment successful" });
+    } else {
+      await Order.findByIdAndDelete(orderId);
+      res.json({ success: false, message: "Payment failed" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -86,6 +180,11 @@ export const updateStatus = async (req, res) => {
       updateData.cancelledBy = null;
     }
 
+    // If order is Delivered and payment type is COD, mark as paid
+    if (status === "Delivered" && order.paymentType === "COD") {
+      updateData.isPaid = true;
+    }
+
     await Order.findByIdAndUpdate(orderId, updateData);
     res.json({ success: true, message: "Status Updated" });
   } catch (error) {
@@ -130,3 +229,4 @@ export const cancelOrder = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+

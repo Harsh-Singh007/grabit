@@ -1,7 +1,6 @@
 import Banner from "../components/Banner";
 import BestSeller from "../components/BestSeller";
 import Category from "../components/Category";
-import NewsLetter from "../components/NewsLetter";
 import AdvertCards from "../components/AdvertCards";
 
 const Home = () => {
@@ -16,9 +15,6 @@ const Home = () => {
       </div>
       <div className="animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
         <BestSeller />
-      </div>
-      <div className="animate-fadeInUp" style={{ animationDelay: '0.8s' }}>
-        <NewsLetter />
       </div>
     </div>
   );

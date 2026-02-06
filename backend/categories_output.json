@@ -1,0 +1,37 @@
+{
+  "totalCategories": 5,
+  "categories": [
+    "Dairy",
+    "Drinks",
+    "Grains",
+    "Snacks",
+    "Vegetables"
+  ],
+  "mapping": {
+    "Dairy": {
+      "databaseCategory": "Dairy",
+      "suggestedPath": "Dairy",
+      "note": "Update the 'path' field in assets.js to match this value"
+    },
+    "Drinks": {
+      "databaseCategory": "Drinks",
+      "suggestedPath": "Drinks",
+      "note": "Update the 'path' field in assets.js to match this value"
+    },
+    "Grains": {
+      "databaseCategory": "Grains",
+      "suggestedPath": "Grains",
+      "note": "Update the 'path' field in assets.js to match this value"
+    },
+    "Snacks": {
+      "databaseCategory": "Snacks",
+      "suggestedPath": "Snacks",
+      "note": "Update the 'path' field in assets.js to match this value"
+    },
+    "Vegetables": {
+      "databaseCategory": "Vegetables",
+      "suggestedPath": "Vegetables",
+      "note": "Update the 'path' field in assets.js to match this value"
+    }
+  }
+}

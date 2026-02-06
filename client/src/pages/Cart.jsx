@@ -84,6 +84,20 @@ const Cart = () => {
         } else {
           toast.error(data.message);
         }
+      } else if (paymentOption === "Online") {
+        const { data } = await axios.post("/api/order/stripe", {
+          items: cartArray.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+          })),
+          address: selectedAddress._id,
+        });
+        if (data.success) {
+          const { session_url } = data;
+          window.location.replace(session_url);
+        } else {
+          toast.error(data.message);
+        }
       }
     } catch (error) {
       toast.error(error.message);
@@ -106,18 +120,18 @@ const Cart = () => {
         {cartArray.map((product, index) => (
           <div
             key={index}
-            className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3"
+            className="grid grid-cols-[1.5fr_1fr_0.5fr] md:grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-4 pb-4 border-b border-gray-100 last:border-b-0"
           >
-            <div className="flex items-center md:gap-6 gap-3">
+            <div className="flex items-center gap-3 md:gap-6">
               <div
                 onClick={() => {
                   navigate(`product/${product.category}/${product._id}`);
                   scrollTo(0, 0);
                 }}
-                className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded cusror-pointer hover:shadow-md transition-shadow"
+                className="cursor-pointer w-16 h-16 md:w-24 md:h-24 flex-shrink-0 flex items-center justify-center border border-gray-200 rounded-lg hover:shadow-md transition-shadow bg-white"
               >
                 <img
-                  className="max-w-full h-full object-cover"
+                  className="max-w-full max-h-full p-2 object-contain"
                   src={
                     product.image[0].startsWith("http")
                       ? product.image[0]
@@ -286,6 +300,34 @@ const Cart = () => {
         </button>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="flex flex-col items-center justify-center py-20 px-6 mx-auto animate-fadeIn">
+      <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          className="text-gray-400"
+        >
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+          <path d="M3 6h18" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+      </div>
+      <h2 className="text-2xl font-medium text-gray-800">Your cart is empty</h2>
+      <p className="text-gray-500 mt-2 mb-8 text-center max-w-xs">
+        Looks like you haven't added anything to your cart yet.
+      </p>
+      <button
+        onClick={() => navigate("/products")}
+        className="px-8 py-3 bg-indigo-500 text-white rounded-lg font-medium hover:bg-indigo-600 transition-all shadow-md hover:shadow-lg active:scale-95"
+      >
+        Start Shopping
+      </button>
+    </div>
+  );
 };
 export default Cart;

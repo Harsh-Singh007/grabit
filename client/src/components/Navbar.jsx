@@ -229,54 +229,73 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`${open ? "flex" : "hidden"
-          } absolute top-full left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}
+        className={`absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 flex-col overflow-hidden transition-[max-height] duration-300 ease-in-out md:hidden ${open ? "max-h-screen" : "max-h-0"
+          }`}
       >
-        <Link onClick={() => setOpen(false)} to={"/"}>
-          Home
-        </Link>
-        <Link onClick={() => setOpen(false)} to={"/products"}>
-          Products
-        </Link>
-
-        {user ? (
-          <div className="relative group">
-            <img src={assets.profile_icon} alt="" className="w-10" />
-            <ul className="hidden group-hover:block absolute top-10 roght-0 bg-white shadow border border-gray-200 py-2 w-30 rounded-md z-40 text-sm">
-              <li
-                onClick={() => navigate("/profile")}
-                className="p-1.5 cursor-pointer hover:bg-gray-50"
-              >
-                Profile
-              </li>
-              <li
-                onClick={() => navigate("/my-orders")}
-                className="p-1.5 cursor-pointer hover:bg-gray-50"
-              >
-                My Orders
-              </li>
-              <li
-                className="cursor-pointer p-1.5 hover:bg-gray-50"
-                onClick={() => {
-                  setUser(null);
-                  navigate("/");
-                }}
-              >
-                Logout
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <button
-            onClick={() => {
-              setOpen(false);
-              setShowUserLogin(true);
-            }}
-            className="cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full"
+        <div className="flex flex-col p-4 gap-3">
+          <Link
+            onClick={() => setOpen(false)}
+            to={"/"}
+            className="p-2 hover:bg-gray-50 rounded-lg text-gray-700 font-medium"
           >
-            Login
-          </button>
-        )}
+            Home
+          </Link>
+          <Link
+            onClick={() => setOpen(false)}
+            to={"/products"}
+            className="p-2 hover:bg-gray-50 rounded-lg text-gray-700 font-medium"
+          >
+            All Products
+          </Link>
+
+          {user ? (
+            <div className="border-t border-gray-100 pt-3 mt-2">
+              <div className="flex items-center gap-3 p-2 mb-2">
+                <img src={assets.profile_icon} alt="" className="w-8 h-8 rounded-full bg-gray-100" />
+                <span className="font-medium text-gray-900">My Account</span>
+              </div>
+              <ul className="flex flex-col gap-1 pl-2">
+                <li
+                  onClick={() => {
+                    navigate("/profile");
+                    setOpen(false);
+                  }}
+                  className="p-2 text-sm text-gray-600 hover:text-indigo-600 cursor-pointer"
+                >
+                  Profile
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/my-orders");
+                    setOpen(false);
+                  }}
+                  className="p-2 text-sm text-gray-600 hover:text-indigo-600 cursor-pointer"
+                >
+                  My Orders
+                </li>
+                <li
+                  className="p-2 text-sm text-red-500 hover:text-red-600 cursor-pointer"
+                  onClick={() => {
+                    logout();
+                    setOpen(false);
+                  }}
+                >
+                  Logout
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                setOpen(false);
+                setShowUserLogin(true);
+              }}
+              className="w-full mt-2 py-2.5 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-lg font-medium shadow-sm active:scale-95"
+            >
+              Login / Sign Up
+            </button>
+          )}
+        </div>
       </div>
     </nav>
   );

@@ -12,6 +12,7 @@ import ProductCategory from "./pages/ProductCategory";
 import Address from "./pages/Address";
 import MyOrders from "./pages/MyOrders";
 import Profile from "./pages/Profile";
+import VerifyPayment from "./pages/VerifyPayment";
 import SellerLogin from "./components/seller/SellerLogin";
 import SellerLayout from "./pages/seller/SellerLayout";
 import AddProduct from "./pages/seller/AddProduct";
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/add-address" element={<Address />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/verify-payment" element={<VerifyPayment />} />
           <Route
             path="/seller"
             element={isSeller ? <SellerLayout /> : <SellerLogin />}

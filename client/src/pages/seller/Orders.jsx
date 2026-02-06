@@ -27,7 +27,20 @@ const Orders = () => {
       });
       if (data.success) {
         toast.success(data.message);
-        fetchOrders();
+
+        // Update local state immediately
+        setOrders(prevOrders => prevOrders.map(order => {
+          if (order._id === orderId) {
+            return {
+              ...order,
+              status: status,
+              isPaid: (status === "Delivered" && order.paymentType === "COD") ? true : order.isPaid
+            };
+          }
+          return order;
+        }));
+
+        fetchOrders(); // Optional: still fetch to ensure consistency
       } else {
         toast.error(data.message);
       }
@@ -69,7 +82,7 @@ const Orders = () => {
               <div className="flex items-center gap-4 text-sm text-gray-600">
                 <div className="flex flex-col">
                   <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Order Date</span>
-                  <span className="font-medium">{new Date(order.orderDate).toLocaleDateString()}</span>
+                  <span className="font-medium">{new Date(order.createdAt).toLocaleDateString()}</span>
                 </div>
                 <div className="flex flex-col hidden sm:flex">
                   <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Payment Method</span>

@@ -91,7 +91,7 @@ const SellerLayout = () => {
             </div>
             <div className="overflow-hidden">
               <p className="text-sm font-medium truncate">Administrator</p>
-              <p className="text-xs text-slate-400 truncate">{seller?.email || "admin@grabit.com"}</p>
+              <p className="text-xs text-slate-400 truncate">{seller?.email || "admin@gmail.com"}</p>
             </div>
           </div>
         </div>

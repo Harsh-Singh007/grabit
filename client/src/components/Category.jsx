@@ -21,7 +21,7 @@ const Category = () => {
               alt=""
               className="max-w-16 md:max-w-28 transition group-hover:scale-110"
             />
-            <p className="text-xs md:text-sm font-medium whitespace-nowrap">{category.text}</p>
+            <p className="text-xs md:text-sm font-medium text-center">{category.text}</p>
           </div>
         ))}
       </div>

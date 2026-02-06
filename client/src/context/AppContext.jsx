@@ -15,6 +15,7 @@ export const AppContextProvider = ({ children }) => {
   const [showUserLogin, setShowUserLogin] = useState(false);
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
+  const [isCartLoaded, setIsCartLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   // check seller status
@@ -40,7 +41,8 @@ export const AppContextProvider = ({ children }) => {
       const { data } = await axios.get("/api/user/is-auth");
       if (data.success) {
         setUser(data.user);
-        setCartItems(data.user.cart);
+        setCartItems(data.user.cartItems || {});
+        setIsCartLoaded(true);
       } else {
         toast.error(data.message);
       }
@@ -139,10 +141,10 @@ export const AppContextProvider = ({ children }) => {
       }
     };
 
-    if (user) {
+    if (user && isCartLoaded) {
       updateCart();
     }
-  }, [cartItems]);
+  }, [cartItems, isCartLoaded]);
   const value = {
     navigate,
     user,
